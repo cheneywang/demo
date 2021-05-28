@@ -1,30 +1,20 @@
 <html>
-  <head>
-    <title>My first three.js app</title>
-    <style>
-       body { margin: 0; }
-       canvas { width: 100%; height: 100% }
-    </style>
-  </head>
-  <body>
+
+   <head>
+	<title>My first three.js app</title>
+	<style>
+		body { margin: 0; }
+		canvas { width: 100%; height: 100% }
+	</style>
+   </head>
+    <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
     <script>
-  </script>
-	<head>
-		<title>My first three.js app</title>
-		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
-		</style>
-	</head>
-	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
-		<script>
     let base64Left='./base64Left.png';
     let base64Top='./base64Top.png';
     let base64='./base64.png';
     //创建场景
-		var scene = new THREE.Scene();
+    var scene = new THREE.Scene();
 
 		 //创建几何体
     let geometry = new THREE.BoxGeometry( 3, 1.8, 0.8 );//x,y,z
