@@ -9,36 +9,61 @@
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
     <script>
-     //创建场景
-    let scene = new THREE.Scene();
-     //创建几何体
+  </script>
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
+		<script>
+    let base64Left='./base64Left.png';
+    let base64Top='./base64Top.png';
+    let base64='./base64.png';
+    //创建场景
+		var scene = new THREE.Scene();
+
+		 //创建几何体
     let geometry = new THREE.BoxGeometry( 3, 1.8, 0.8 );//x,y,z
-     //创建材质
+    //创建材质
     let materials=[];
-    //base64图片自行添加
     let skinArr=[base64Left,base64Left,base64Top,base64Top,base64,base64];//左、右、顶、底、正、反
+    let textureLoader = new THREE.TextureLoader();
     for(let skinKey in skinArr){
-      let texture=THREE.ImageUtils.loadTexture(skinArr[skinKey])
-      materials.push(new THREE.MeshBasicMaterial( { map:texture}))
+      textureLoader.load(skinArr[skinKey], function(texture) {
+        materials.push(new THREE.MeshLambertMaterial({ map:texture}))
+      })
     }
     //创建网格模型
-    let cube = new THREE.Mesh( geometry, materials)
-    //相机
-    let camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var cube = new THREE.Mesh( geometry,  materials);
+    scene.add( cube );
+
+    //创建相机
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
     camera.position.z = 5;
+    //点光源
+    var point = new THREE.PointLight(0xffffff);
+    point.position.set(0, 0, 4); //点光源位置
+    // 通过add方法插入场景中，不插入的话，渲染的时候不会获取光源的信息进行光照计算
+    scene.add(point); //点光源添加到场景中
     //渲染
-    let renderer = new THREE.WebGLRenderer();
+    cube.rotation.x =0.5;
+    var renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
-    renderer.render( scene, camera );
-    cube.rotation.x =Math.PI/6;
-    renderer.render( scene, camera );
-    let animate = function () {
+
+    //旋转
+    var animate = function () {
       requestAnimationFrame( animate );
       cube.rotation.y += 0.01;
       renderer.render( scene, camera );
     };
-    animate();
-    </script>
- </body>
+    animate();  
+		</script>
+	</body>
 </html>
+
+   
